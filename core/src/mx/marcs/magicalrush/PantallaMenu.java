@@ -60,6 +60,18 @@ public class PantallaMenu extends Pantalla {
             }
         });
 
+        Button btnAcerca = crearBoton("menu/acerca-de.png", "menu/acerca-de(2).png");
+        btnAcerca.setPosition(ANCHO/2,ALTO/2-300, Align.center);
+        // Agrega el botón a la escena
+        escenaMenu.addActor(btnAcerca);
+        btnAcerca.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                juego.setScreen(new PantallaAcerca(juego));
+            }
+        });
+
+
 
         //Atiende los eventos de entrada
         Gdx.input.setInputProcessor(escenaMenu);
