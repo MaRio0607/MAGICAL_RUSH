@@ -33,7 +33,7 @@ public class PantallaAcerca extends Pantalla{
         //se crea la escena del menu
         escenaAcerca=new Stage(vista);
 
-        // Crear titulo
+
         sprite=new Sprite(new Texture("menu/TitAcerca.png"));
         sprite.setPosition(ANCHO/2-300,ALTO/2);
 
