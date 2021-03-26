@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Representa el comportamiento genérico de cualquier pantalla que forma
  * parte del juego
  */
+//modificado por ale aguilar
 public abstract class Pantalla implements Screen
 {
     // Atributos disponibles en todas las clases del proyecto
