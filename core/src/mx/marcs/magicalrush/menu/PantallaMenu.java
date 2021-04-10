@@ -1,7 +1,6 @@
-package mx.marcs.magicalrush;
+package mx.marcs.magicalrush.menu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,6 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+
+import mx.marcs.magicalrush.Juego;
+import mx.marcs.magicalrush.Pantalla;
+import mx.marcs.magicalrush.PantallaAcerca;
+import mx.marcs.magicalrush.PantallaInstrucciones;
+import mx.marcs.magicalrush.juegoMain.PantallaJuegoMain;
 
 public class PantallaMenu extends Pantalla {
     private Juego juego;

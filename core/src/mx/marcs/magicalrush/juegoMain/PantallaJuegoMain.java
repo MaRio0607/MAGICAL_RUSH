@@ -1,7 +1,6 @@
-package mx.marcs.magicalrush;
+package mx.marcs.magicalrush.juegoMain;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,6 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+
+import mx.marcs.magicalrush.Juego;
+import mx.marcs.magicalrush.Pantalla;
+import mx.marcs.magicalrush.menu.PantallaMenu;
 
 public class PantallaJuegoMain extends Pantalla {
     private Juego juego;
@@ -65,7 +68,7 @@ public class PantallaJuegoMain extends Pantalla {
         personaje=new Personaje(textPersonaje,100,0.1f*ALTO);
     }
     private void crearEnemigos() {
-        Texture textureAlien = new Texture("Juego/slime.png");
+        Texture textureAlien = new Texture("Juego/Slime.png");
         //alien= new Alien(textureAlien,ANCHO/2,ALTO/2);
         //crear 55 aliens
 
