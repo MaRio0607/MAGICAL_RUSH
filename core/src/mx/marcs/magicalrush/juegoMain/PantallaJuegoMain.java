@@ -39,7 +39,7 @@ public class PantallaJuegoMain extends Pantalla {
         escenaJuego=new Stage(vista);
         //crear el boton
         Button btnVolver = crearBoton("Instruciones/volver.png", "Instruciones/volver(2).png");
-        btnVolver.setPosition(100,100, Align.center);
+        btnVolver.setPosition(100,600, Align.center);
         // Agrega el botón a la escena
         escenaJuego.addActor(btnVolver);
         btnVolver.addListener(new ClickListener(){
@@ -64,7 +64,7 @@ public class PantallaJuegoMain extends Pantalla {
 
 
     private void crearPersonaje() {
-        Texture textPersonaje =new Texture("Juego/RUI.png");
+        Texture textPersonaje =new Texture("Juego/RUI(SPRITE)).png");
         personaje=new Personaje(textPersonaje,100,0.1f*ALTO);
     }
     private void crearEnemigos() {
