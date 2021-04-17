@@ -2,6 +2,7 @@ package mx.marcs.magicalrush.juegoMain;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -18,10 +19,12 @@ public class PantallaJuegoMain extends Pantalla {
     private Juego juego;
     // fondo
     private Personaje personaje;
-    private Array<Enemigo> EnemigoArray; //guarda los aliens
+    private Texture textureSlime;
+    private Array<Slime> SlimeArray; //guarda los aliens
     private Texture texturaFondo;
     private Stage escenaJuego;
-
+    private float timerSlime;
+    private final float TIEMPO_CREAR_SLIME=2;
 
     public PantallaJuegoMain(Juego juego) {
         this.juego=juego;
@@ -30,7 +33,7 @@ public class PantallaJuegoMain extends Pantalla {
     @Override
     public void show() {
         texturaFondo=new Texture("Juego/Back2.png");
-        crearEnemigos();
+        crearSlime();
         crearPersonaje();
         crearMenu();
     }
@@ -67,28 +70,22 @@ public class PantallaJuegoMain extends Pantalla {
         Texture textPersonaje =new Texture("Juego/RUI(SPRITE)).png");
         personaje=new Personaje(textPersonaje,100,0.1f*ALTO);
     }
-    private void crearEnemigos() {
-        Texture textureAlien = new Texture("Juego/Slime.png");
-        //alien= new Alien(textureAlien,ANCHO/2,ALTO/2);
-        //crear 55 aliens
-
-        EnemigoArray=new Array<>(1*1);
-        for(int renglon=0;renglon<1; renglon++){//recorre los renglones (0->4)
-            for (int columna=0;columna<1;columna++){
-                Enemigo alien=new Enemigo(textureAlien,510+columna*60,0.1f*ALTO);
-                EnemigoArray.add(alien);
-            }
-        }
+    private void crearSlime() {
+        textureSlime=new Texture("Juego/Slime-Sheet.png");
+        //goomba=new Goomba(textureGoomba,ANCHO-62,64);
+        SlimeArray=new Array<>(3);
     }
 
 
     @Override
     public void render(float delta) {
+        actualizar(delta);
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         batch.draw(texturaFondo,0,0);
-        for (Enemigo enemigo:EnemigoArray) {
+        //Dibujar Slime
+        for (Slime enemigo: SlimeArray) {
             enemigo.render(batch);
         }
         personaje.render(batch);
@@ -96,6 +93,32 @@ public class PantallaJuegoMain extends Pantalla {
 
         //Escena despues del fondo
         escenaJuego.draw();
+    }
+
+    private void actualizar(float delta) {
+        actualizarFondo();
+        actualizarGoombas(delta);
+    }
+
+    private void actualizarGoombas(float delta) {
+    //crear
+        timerSlime +=delta;
+        if (timerSlime>=TIEMPO_CREAR_SLIME){
+            timerSlime=0;
+            //crear enemigo
+            float xGoomba= MathUtils.random(ANCHO,ANCHO*1.5f);
+            Slime slime=new Slime(textureSlime,xGoomba,54);
+            SlimeArray.add(slime);
+        }
+
+        //mover enemigos
+        for (Slime goomba:SlimeArray){
+            goomba.moverIzquierda(delta);//fisica
+        }
+    }
+
+    private void actualizarFondo() {
+
     }
 
     @Override
