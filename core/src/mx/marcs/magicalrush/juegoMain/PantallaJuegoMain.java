@@ -1,8 +1,10 @@
 package mx.marcs.magicalrush.juegoMain;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -17,14 +19,23 @@ import mx.marcs.magicalrush.menu.PantallaMenu;
 
 public class PantallaJuegoMain extends Pantalla {
     private Juego juego;
-    // fondo
+    //personaje
     private Personaje personaje;
+
+    //enemigo
+    //private Goomba goomba;
     private Texture textureSlime;
     private Array<Slime> SlimeArray; //guarda los aliens
     private Texture texturaFondo;
-    private Stage escenaJuego;
     private float timerSlime;
     private final float TIEMPO_CREAR_SLIME=2;
+
+    // fondo
+    private Stage escenaJuego;
+
+    //Disparo del personaje
+    private Array<Bola>arrBolas;
+    private Texture texturaBola;
 
     public PantallaJuegoMain(Juego juego) {
         this.juego=juego;
@@ -33,9 +44,17 @@ public class PantallaJuegoMain extends Pantalla {
     @Override
     public void show() {
         texturaFondo=new Texture("Juego/Back2.png");
-        crearSlime();
         crearPersonaje();
+        crearBolas();
+        crearSlime();
         crearMenu();
+        //poner input procesor
+        Gdx.input.setInputProcessor(new ProcesadorEntrada());
+    }
+
+    private void crearBolas() {
+        arrBolas=new Array<>();
+        texturaBola=new Texture("Juego/bolaFuego.png");
     }
 
     private void crearMenu() {
@@ -88,6 +107,10 @@ public class PantallaJuegoMain extends Pantalla {
         for (Slime enemigo: SlimeArray) {
             enemigo.render(batch);
         }
+        //Dibujar bolas
+        for (Bola bolaFuego:arrBolas){
+            bolaFuego.render(batch);
+        }
         personaje.render(batch);
         batch.end();
 
@@ -98,6 +121,19 @@ public class PantallaJuegoMain extends Pantalla {
     private void actualizar(float delta) {
         actualizarFondo();
         actualizarGoombas(delta);
+        actualizarBolas(delta);
+    }
+
+    private void actualizarBolas(float delta) {
+        for (int i=arrBolas.size-1;i>=0;i--){
+            Bola bola = arrBolas.get(i);
+            bola.mover(delta);
+            //Prueba si la bola debe desaparecer
+            if(bola.getX()>ANCHO){
+                //borrar el objeto
+                arrBolas.removeIndex(i);
+            }
+        }
     }
 
     private void actualizarGoombas(float delta) {
@@ -134,5 +170,54 @@ public class PantallaJuegoMain extends Pantalla {
     @Override
     public void dispose() {
 
+    }
+
+    private class ProcesadorEntrada implements InputProcessor {
+        @Override
+        public boolean keyDown(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            Vector3 v =new Vector3(screenX, screenY,0);
+            camara.unproject(v);
+            if (v.x<=ANCHO/2){
+                //Dispara
+                Bola bolaFuego = new Bola(texturaBola,personaje.getSprite().getX(),personaje.getSprite().getY());
+                arrBolas.add(bolaFuego);
+            }
+            return true;
+        }
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(float amountX, float amountY) {
+            return false;
+        }
     }
 }
