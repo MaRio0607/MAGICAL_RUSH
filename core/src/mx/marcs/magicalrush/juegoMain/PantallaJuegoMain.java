@@ -19,6 +19,11 @@ import mx.marcs.magicalrush.menu.PantallaMenu;
 
 public class PantallaJuegoMain extends Pantalla {
     private Juego juego;
+
+    //fondo infinito
+    private Texture textureFondo;
+    private float xFondo=0;
+
     //personaje
     private Personaje personaje;
 
@@ -43,13 +48,18 @@ public class PantallaJuegoMain extends Pantalla {
 
     @Override
     public void show() {
-        texturaFondo=new Texture("Juego/Back2.png");
+        crearFondo();
         crearPersonaje();
         crearBolas();
         crearSlime();
         crearMenu();
         //poner input procesor
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
+    }
+
+    private void crearFondo() {
+        textureFondo=new Texture("Juego/fondoMain.png");
+
     }
 
     private void crearBolas() {
@@ -102,7 +112,10 @@ public class PantallaJuegoMain extends Pantalla {
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-        batch.draw(texturaFondo,0,0);
+        //se dibuja el fondo
+        batch.draw(textureFondo,xFondo,0);
+        batch.draw(textureFondo,xFondo+textureFondo.getWidth(),0);
+
         //Dibujar Slime
         for (Slime enemigo: SlimeArray) {
             enemigo.render(batch);
@@ -154,6 +167,10 @@ public class PantallaJuegoMain extends Pantalla {
     }
 
     private void actualizarFondo() {
+        xFondo-=2;
+        if (xFondo <= -textureFondo.getWidth()){
+            xFondo= 0;
+        }
 
     }
 
