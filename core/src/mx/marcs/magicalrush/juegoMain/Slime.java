@@ -12,6 +12,8 @@ import mx.marcs.magicalrush.Objeto;
 public class Slime extends Objeto {
     private Animation<TextureRegion> animation;
     private float timerAnimacion=0;
+    private EstadoSlime estado;
+
     //fisica
     private float velocidadX=-300;    //pixeles/segndo
     public Slime(Texture texture, float x, float y){
@@ -26,6 +28,7 @@ public class Slime extends Objeto {
 
         sprite=new Sprite(texturas [0][0]);
         sprite.setPosition(x,y);
+        estado = EstadoSlime.VIVO;
     }
     @Override
     public void render(SpriteBatch batch){
@@ -33,6 +36,15 @@ public class Slime extends Objeto {
         TextureRegion frame= animation.getKeyFrame(timerAnimacion);
         batch.draw(frame,sprite.getX(),sprite.getY());
     }
+
+    public EstadoSlime getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoSlime nuevoEstado){
+        this.estado = nuevoEstado;
+    }
+
     //mover enemigos
     public void moverIzquierda(float delta) {
         float dx =velocidadX*delta;

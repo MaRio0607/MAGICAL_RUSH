@@ -134,8 +134,9 @@ public class PantallaJuegoMain extends Pantalla {
 
     private void actualizar(float delta) {
         actualizarFondo();
-        actualizarGoombas(delta);
+        actualizarSlime(delta);
         actualizarBolas(delta);
+        probarColisiones();
     }
 
     private void actualizarBolas(float delta) {
@@ -150,7 +151,16 @@ public class PantallaJuegoMain extends Pantalla {
         }
     }
 
-    private void actualizarGoombas(float delta) {
+    private void depurarSlimes() {
+        for(int i= SlimeArray.size-1; i>=0; i--){
+            Slime slime = SlimeArray.get(i);
+            if(slime.getEstado() == EstadoSlime.EXPLOTA){
+                SlimeArray.removeIndex(i);
+            }
+        }
+    }
+
+    private void actualizarSlime(float delta) {
     //crear
         timerSlime +=delta;
         if (timerSlime>=TIEMPO_CREAR_SLIME){
@@ -164,6 +174,19 @@ public class PantallaJuegoMain extends Pantalla {
         //mover enemigos
         for (Slime goomba:SlimeArray){
             goomba.moverIzquierda(delta);//fisica
+        }
+        depurarSlimes();
+    }
+
+    private void probarColisiones() {
+        //NO podemos usar el iterador
+        for(int i= SlimeArray.size-1; i>=0; i--){
+            Slime slime = SlimeArray.get(i);
+            if(personaje.sprite.getBoundingRectangle().overlaps(slime.sprite.getBoundingRectangle())){
+                //Le pegó
+                slime.setEstado(EstadoSlime.EXPLOTA);
+                break;
+            }
         }
     }
 
