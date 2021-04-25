@@ -11,5 +11,5 @@ public class Juego  extends Game {
 		setScreen(new PantallaMenu(this)); //Primera pantalla visible
 	}
 	//Comentario de España :3
-	//Rafa estuvo aqui
+	//Rafa estuvo aqui lol
 }
