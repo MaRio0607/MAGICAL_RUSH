@@ -25,6 +25,7 @@ public class PantallaJuegoMain extends Pantalla {
     private float xFondo=0;
 
     //personaje
+    private Texture textureRUI;
     private Personaje personaje;
 
     //enemigo
@@ -52,7 +53,6 @@ public class PantallaJuegoMain extends Pantalla {
         crearPersonaje();
         crearBolas();
         crearSlime();
-        crearMenu();
         //poner input procesor
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
@@ -67,44 +67,17 @@ public class PantallaJuegoMain extends Pantalla {
         texturaBola=new Texture("Juego/bolaFuego.png");
     }
 
-    private void crearMenu() {
-        escenaJuego=new Stage(vista);
-        //crear el boton
-        Button btnVolver = crearBoton("Instruciones/volver.png", "Instruciones/volver(2).png");
-        btnVolver.setPosition(100,600, Align.center);
-        // Agrega el botón a la escena
-        escenaJuego.addActor(btnVolver);
-        btnVolver.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                juego.setScreen(new PantallaMenu(juego));
-            }
-        });
-
-        //Atiende los eventos de entrada
-        Gdx.input.setInputProcessor(escenaJuego);
-    }
-
-    private Button crearBoton(String image_path, String inverse_image_path) {
-        Texture texturaBoton = new Texture(image_path);
-        TextureRegionDrawable trdButton = new TextureRegionDrawable(texturaBoton);
-        Texture texturaInverso = new Texture(inverse_image_path);
-        TextureRegionDrawable trdBtnInverso = new TextureRegionDrawable(texturaInverso);
-
-        return new Button(trdButton,trdBtnInverso);
-    }
-
 
     private void crearPersonaje() {
-        Texture textPersonaje =new Texture("Juego/RUI(SPRITE)).png");
-        personaje=new Personaje(textPersonaje,100,0.1f*ALTO);
+        textureRUI = new Texture("Juego/RUI-Sheet.png");
+        personaje = new Personaje(textureRUI,100,0.1f*ALTO);
+
     }
     private void crearSlime() {
-        textureSlime=new Texture("Juego/Slime-Sheet.png");
+        textureSlime = new Texture("Juego/Slime-Sheet.png");
         //goomba=new Goomba(textureGoomba,ANCHO-62,64);
         SlimeArray=new Array<>(3);
     }
-//uwu
 
 
     @Override
@@ -116,6 +89,7 @@ public class PantallaJuegoMain extends Pantalla {
         //se dibuja el fondo
         batch.draw(textureFondo,xFondo,0);
         batch.draw(textureFondo,xFondo+textureFondo.getWidth(),0);
+        personaje.render(batch);
 
         //Dibujar Slime
         for (Slime enemigo: SlimeArray) {
@@ -125,11 +99,9 @@ public class PantallaJuegoMain extends Pantalla {
         for (Bola bolaFuego:arrBolas){
             bolaFuego.render(batch);
         }
-        personaje.render(batch);
+
         batch.end();
 
-        //Escena despues del fondo
-        escenaJuego.draw();
     }
 
     private void actualizar(float delta) {
@@ -237,6 +209,8 @@ public class PantallaJuegoMain extends Pantalla {
                 //Dispara
                 Bola bolaFuego = new Bola(texturaBola,personaje.getSprite().getX(),personaje.getSprite().getY());
                 arrBolas.add(bolaFuego);
+            } else {
+                personaje.saltar();
             }
             return true;
         }
