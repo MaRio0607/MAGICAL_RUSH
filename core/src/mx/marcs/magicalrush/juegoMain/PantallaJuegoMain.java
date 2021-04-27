@@ -207,7 +207,7 @@ public class PantallaJuegoMain extends Pantalla {
             camara.unproject(v);
             if (v.x<=ANCHO/2){
                 //Dispara
-                Bola bolaFuego = new Bola(texturaBola,personaje.getSprite().getX(),personaje.getSprite().getY());
+                Bola bolaFuego = new Bola(texturaBola,personaje.getSprite().getX()+60,personaje.getSprite().getY()+30);
                 arrBolas.add(bolaFuego);
             } else {
                 personaje.saltar();
