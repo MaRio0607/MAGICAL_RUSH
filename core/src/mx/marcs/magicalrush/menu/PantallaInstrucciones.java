@@ -1,4 +1,4 @@
-package mx.marcs.magicalrush;
+package mx.marcs.magicalrush.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,38 +10,39 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 
+import mx.marcs.magicalrush.Juego;
+import mx.marcs.magicalrush.Pantalla;
 import mx.marcs.magicalrush.menu.PantallaMenu;
 
-public class PantallaAcerca extends Pantalla{
+public class PantallaInstrucciones extends Pantalla {
 
     private Juego juego;
     private Sprite sprite;
     private Texture texturaFondo;
-    private Stage escenaAcerca;
+    private Stage escenaInstrucciones;
 
-    public PantallaAcerca(Juego juego) {
+    public PantallaInstrucciones(Juego juego) {
         this.juego=juego;
-
     }
 
     @Override
     public void show() {
         crearMenu();
+
     }
 
     private void crearMenu() {
-        texturaFondo=new Texture("Instruciones/AceBack.jpg");
-        //se crea la escena del menu
-        escenaAcerca=new Stage(vista);
+        texturaFondo=new Texture("Instruciones/InsBack.jpg");
+        sprite=new Sprite(new Texture("Instruciones/yumme.jpg"));
+        sprite.setPosition(ANCHO/2-200,ALTO/2);
 
+        escenaInstrucciones=new Stage(vista);
 
-        sprite=new Sprite(new Texture("menu/TitAcerca.png"));
-        sprite.setPosition(ANCHO/2-300,ALTO/2);
-
+        //crear el boton
         Button btnVolver = crearBoton("Instruciones/volver.png", "Instruciones/volver(2).png");
         btnVolver.setPosition(ANCHO/2,ALTO/2-200, Align.center);
         // Agrega el botón a la escena
-        escenaAcerca.addActor(btnVolver);
+        escenaInstrucciones.addActor(btnVolver);
         btnVolver.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -51,7 +52,8 @@ public class PantallaAcerca extends Pantalla{
 
 
         //Atiende los eventos de entrada
-        Gdx.input.setInputProcessor(escenaAcerca);
+        Gdx.input.setInputProcessor(escenaInstrucciones);
+
     }
 
     private Button crearBoton(String image_path, String inverse_image_path) {
@@ -62,10 +64,9 @@ public class PantallaAcerca extends Pantalla{
 
         return new Button(trdButton,trdBtnInverso);
     }
-
     @Override
     public void render(float delta) {
-        borrarPantalla(0,1,0);
+        borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
 
         batch.begin();
@@ -75,8 +76,7 @@ public class PantallaAcerca extends Pantalla{
         batch.end();
 
         //Escena despues del fondo
-        escenaAcerca.draw();
-
+        escenaInstrucciones.draw();
     }
 
     @Override

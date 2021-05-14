@@ -10,6 +10,5 @@ public class Juego  extends Game {
 		//Muestre la primer pantlla
 		setScreen(new PantallaMenu(this)); //Primera pantalla visible
 	}
-	//Comentario de España :3
-	//Rafa estuvo aqui lolsd
+
 }

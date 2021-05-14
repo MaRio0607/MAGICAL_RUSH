@@ -12,8 +12,6 @@ import com.badlogic.gdx.utils.Align;
 
 import mx.marcs.magicalrush.Juego;
 import mx.marcs.magicalrush.Pantalla;
-import mx.marcs.magicalrush.PantallaAcerca;
-import mx.marcs.magicalrush.PantallaInstrucciones;
 import mx.marcs.magicalrush.juegoMain.PantallaJuegoMain;
 
 public class PantallaMenu extends Pantalla {
@@ -35,12 +33,12 @@ public class PantallaMenu extends Pantalla {
 
     private void crearMenu() {
         //Fondo
-        texturaFondo=new Texture("menu/Pback.png");
+        texturaFondo=new Texture("menu/menu_room.png");
         //se crea la escena del menu
         escenaMenu=new Stage(vista);
         // Crear titulo
-        sprite=new Sprite(new Texture("menu/titulo.png"));
-        sprite.setPosition(ANCHO/2-200,ALTO/2);
+        sprite=new Sprite(new Texture("menu/magical_rush.png"));
+        sprite.setPosition(ANCHO/2-320,ALTO/2);
         //crear el boton
         Button btnJugar = crearBoton("menu/jugar.png", "menu/jugar(2).png");
         btnJugar.setPosition(ANCHO/2,ALTO/2-100, Align.center);
