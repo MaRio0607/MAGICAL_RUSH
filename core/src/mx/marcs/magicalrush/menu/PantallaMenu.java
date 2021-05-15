@@ -18,6 +18,7 @@ public class PantallaMenu extends Pantalla {
     private Juego juego;
     // fondo
     private Texture texturaFondo;
+    private Texture texturaMarco;
     private Sprite sprite;
     //escena
     private Stage escenaMenu;
@@ -34,14 +35,16 @@ public class PantallaMenu extends Pantalla {
     private void crearMenu() {
         //Fondo
         texturaFondo=new Texture("menu/menu_room.png");
+        //Marco
+        texturaMarco=new Texture("menu/Marco.png");
         //se crea la escena del menu
         escenaMenu=new Stage(vista);
         // Crear titulo
         sprite=new Sprite(new Texture("menu/magical_rush.png"));
         sprite.setPosition(ANCHO/2-320,ALTO/2);
         //crear el boton
-        Button btnJugar = crearBoton("menu/jugar.png", "menu/jugar(2).png");
-        btnJugar.setPosition(ANCHO/2,ALTO/2-100, Align.center);
+        Button btnJugar = crearBoton("menu/Com_OFF.png", "menu/Com_ON.png");
+        btnJugar.setPosition(ANCHO/2,ALTO/2-30, Align.center);
         // Agrega el botón a la escena
         escenaMenu.addActor(btnJugar);
         btnJugar.addListener(new ClickListener(){
@@ -52,8 +55,8 @@ public class PantallaMenu extends Pantalla {
         });
 
         //crear el boton
-        Button btnInts = crearBoton("menu/instrucciones.png", "menu/instrucciones(2).png");
-        btnInts.setPosition(ANCHO/2,ALTO/2-200, Align.center);
+        Button btnInts = crearBoton("menu/INST_OFF.png", "menu/INST_ON.png");
+        btnInts.setPosition(ANCHO/2,ALTO/2-130, Align.center);
         // Agrega el botón a la escena
         escenaMenu.addActor(btnInts);
         btnInts.addListener(new ClickListener(){
@@ -63,8 +66,8 @@ public class PantallaMenu extends Pantalla {
             }
         });
 
-        Button btnAcerca = crearBoton("menu/acerca-de.png", "menu/acerca-de(2).png");
-        btnAcerca.setPosition(ANCHO/2,ALTO/2-300, Align.center);
+        Button btnAcerca = crearBoton("menu/ABOUT_OFF.png", "menu/ABOUT_ON.png");
+        btnAcerca.setPosition(ANCHO/2,ALTO/2-230, Align.center);
         // Agrega el botón a la escena
         escenaMenu.addActor(btnAcerca);
         btnAcerca.addListener(new ClickListener(){
@@ -96,6 +99,7 @@ public class PantallaMenu extends Pantalla {
 
         batch.begin();
         batch.draw(texturaFondo,0,0);
+        batch.draw(texturaMarco,ANCHO/2-250,ALTO/2-300);
         sprite.draw(batch);
 
         batch.end();
