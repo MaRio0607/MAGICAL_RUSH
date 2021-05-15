@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import mx.marcs.magicalrush.Juego;
 import mx.marcs.magicalrush.Pantalla;
 import mx.marcs.magicalrush.juegoMain.PantallaJuegoMain;
+import mx.marcs.magicalrush.juegoMain.Tutorial;
 
 public class PantallaMenu extends Pantalla {
     private Juego juego;
@@ -50,7 +51,7 @@ public class PantallaMenu extends Pantalla {
         btnJugar.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                juego.setScreen(new PantallaJuegoMain(juego));
+                juego.setScreen(new Tutorial(juego));
             }
         });
 
