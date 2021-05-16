@@ -73,6 +73,9 @@ public class Personaje extends Objeto {
                 super.render(batch);
                 break;
         }
+        //
+
+
 
     }
     //Calcula el movimient vertical
