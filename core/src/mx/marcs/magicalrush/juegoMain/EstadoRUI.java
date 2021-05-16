@@ -7,4 +7,5 @@ public enum EstadoRUI {
     BAJANDO,
     MOV_IZQUIERDA,
     MOV_DERECHA,
+    QUIETO,
 }

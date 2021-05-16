@@ -31,8 +31,13 @@ public class Personaje extends Objeto {
     //CALCULADOR DE FRAME
     private float TimerAnimation;
 
+    //Estado Personaje
+    private EstadoRUI estadoMoviento;
+
+
     private Animation<TextureRegion> animacionCorrer;
     private float timerAnimation; //sabre el frame que corresponde mostrar
+
     //Salto
     private final float yBase=54;    //Suelo, piso
     private float tAire;             //Tiempo que lleva en al aire
@@ -110,4 +115,5 @@ public class Personaje extends Objeto {
             estadoRUI=EstadoRUI.SALTANDO;
         }
     }
+
 }
