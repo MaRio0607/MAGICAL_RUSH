@@ -85,33 +85,56 @@ public class Personaje extends Objeto {
      */
     //Reescribir el metodo render para mostrar la animacion
     public void render(SpriteBatch batch){
-        float delta= Gdx.graphics.getDeltaTime();
-        switch (estadoRUI){
-            case CAMINADO:
-                timerAnimation+=delta;
-                TextureRegion frame=animacionCorrer.getKeyFrame(timerAnimation);
-                batch.draw(frame, sprite.getX(),sprite.getY());
+        // Dibuja el personaje dependiendo del estadoMovimiento
+        switch (estadoMoviento) {
+            case MOV_DERECHA:
+            case MOV_IZQUIERDA:
+                // Incrementa el timer para calcular el frame que se dibuja
+                timerAnimacion += Gdx.graphics.getDeltaTime();
+                // Obtiene el frame que se debe mostrar (de acuerdo al timer)
+                TextureRegion region = (TextureRegion)animacion.getKeyFrame(timerAnimacion);
+                // Dirección correcta
+                if (estadoRUI==estadoMoviento.MOV_IZQUIERDA) {
+                    if (!region.isFlipX()) {
+                        region.flip(true,false);
+                    }
+                } else {
+                    if (region.isFlipX()) {
+                        region.flip(true,false);
+                    }
+                }
+                // Dibuja el frame en las coordenadas del sprite
+                batch.draw(region, sprite.getX(), sprite.getY());
                 break;
-            case SALTANDO:
-                actualizar();  //al saltar calcula la nueva poscion
-                super.render(batch);
+            case INICIANDO:
+            case QUIETO:
+                sprite.draw(batch); // Dibuja el sprite
                 break;
         }
-        //
 
 
 
     }
-    //Calcula el movimient vertical
+    //
+    // Calcula el movimient vertical
     private void actualizar() {
-        float delta=Gdx.graphics.getDeltaTime();
-        tAire+=5*delta;
-        float y =yBase+v0y*tAire-0.5f*g*tAire*tAire;
-        sprite.setY(y);
-        //como saber si ya termino
-        if(tAire>=tVuelo||y<=yBase){
-            estadoRUI=EstadoRUI.CAMINADO;
-            sprite.setY(yBase);
+        // Ejecutar movimiento horizontal
+        float nuevaX = sprite.getX();
+        switch (estadoMoviento) {
+            case MOV_DERECHA:
+                // Prueba que no salga del mundo
+                nuevaX += VELOCIDAD_X;
+                if (nuevaX<=PantallaJuegoMain.ANCHO_MAPA-sprite.getWidth()) {
+                    sprite.setX(nuevaX);
+                }
+                break;
+            case MOV_IZQUIERDA:
+                // Prueba que no salga del mundo
+                nuevaX -= VELOCIDAD_X;
+                if (nuevaX>=0) {
+                    sprite.setX(nuevaX);
+                }
+                break;
         }
     }
 

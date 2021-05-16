@@ -1,6 +1,7 @@
 package mx.marcs.magicalrush.juegoMain;
 
 public enum EstadoRUI {
+    INICIANDO,
     CAMINADO,
     SALTANDO,
     SUBIENDO,
