@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
+import javax.xml.soap.Text;
+
 import mx.marcs.magicalrush.Objeto;
 
 public class Personaje extends Objeto {
@@ -15,10 +17,10 @@ public class Personaje extends Objeto {
     public static final float VELOCIDAD_X=2; //Velocidad horizontal
     private Sprite sprite; //Sprite cuando no se mueve
 
-    /*
+
     private Animation animacion;    //Caminando
     private float timerAnimacion; //tiempo para calcular el frame
-     */
+
 
     //ANIMACIÓN
     private EstadoRUI CAMINANDO;
@@ -33,6 +35,7 @@ public class Personaje extends Objeto {
 
     //Estado Personaje
     private EstadoRUI estadoMoviento;
+    private EstadoRUI estadoSalto;
 
 
     private Animation<TextureRegion> animacionCorrer;
@@ -46,6 +49,20 @@ public class Personaje extends Objeto {
     private final  float g= 150;    //Pixeles sobre segundo al cuadrado
     private  EstadoRUI estadoRUI; //SAltando,caminado, bajando, izquierda, derecha
 
+    public Personaje(Texture textura){
+        //lee la textura como región
+        TextureRegion texturaCompleta= new TextureRegion(textura);
+        TextureRegion[][] texturaPersonaje=texturaCompleta.split(16,32);
+        animacion=new Animation(0.25f,texturaPersonaje[0][3],
+                texturaPersonaje[0][2], texturaPersonaje[0][1]);
+        animacion.setPlayMode(Animation.PlayMode.LOOP);
+        timerAnimacion=0;
+        sprite=new Sprite(texturaPersonaje[0][0]);
+        estadoMoviento=EstadoRUI.QUIETO;
+        estadoSalto=EstadoRUI.SALTANDO;
+
+    }
+    /*
     public Personaje(Texture texture,float x, float y){
         // super(texture, x, y);// el constructor de la super clase
         TextureRegion region=new TextureRegion(texture);
@@ -64,6 +81,8 @@ public class Personaje extends Objeto {
         //estado inical
         estadoRUI=EstadoRUI.CAMINADO;
     }
+
+     */
     //Reescribir el metodo render para mostrar la animacion
     public void render(SpriteBatch batch){
         float delta= Gdx.graphics.getDeltaTime();

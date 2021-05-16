@@ -8,4 +8,5 @@ public enum EstadoRUI {
     MOV_IZQUIERDA,
     MOV_DERECHA,
     QUIETO,
+
 }
