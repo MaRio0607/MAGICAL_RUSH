@@ -5,4 +5,6 @@ public enum EstadoRUI {
     SALTANDO,
     SUBIENDO,
     BAJANDO,
+    MOV_IZQUIERDA,
+    MOV_DERECHA,
 }

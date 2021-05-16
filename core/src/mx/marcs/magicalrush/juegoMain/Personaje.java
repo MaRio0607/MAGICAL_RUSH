@@ -11,6 +11,25 @@ import mx.marcs.magicalrush.Objeto;
 
 public class Personaje extends Objeto {
 
+    public static  final float VELOCIDAD_Y=-4F; //Velocidad de caída
+    public static final float VELOCIDAD_X=2; //Velocidad horizontal
+    private Sprite sprite; //Sprite cuando no se mueve
+
+    /*
+    private Animation animacion;    //Caminando
+    private float timerAnimacion; //tiempo para calcular el frame
+     */
+
+    //ANIMACIÓN
+    private EstadoRUI CAMINANDO;
+    private EstadoRUI SALTANDO;
+    private EstadoRUI SUBIENDO;
+    private EstadoRUI BAJANDO;
+    private EstadoRUI MOV_IZQUIERDA;
+    private EstadoRUI MOV_DERECHA;
+
+    //CALCULADOR DE FRAME
+    private float TimerAnimation;
 
     private Animation<TextureRegion> animacionCorrer;
     private float timerAnimation; //sabre el frame que corresponde mostrar
@@ -20,7 +39,7 @@ public class Personaje extends Objeto {
     private float tVuelo;            //Tiempo de vuelo total
     private final float v0y=200;     //Componete en y de la velocidad
     private final  float g= 150;    //Pixeles sobre segundo al cuadrado
-    private  EstadoRUI estadoRUI; //SAltando,caminado, bajando
+    private  EstadoRUI estadoRUI; //SAltando,caminado, bajando, izquierda, derecha
 
     public Personaje(Texture texture,float x, float y){
         // super(texture, x, y);// el constructor de la super clase
@@ -56,7 +75,7 @@ public class Personaje extends Objeto {
         }
 
     }
-    //Calcula el movimient ertical
+    //Calcula el movimient vertical
     private void actualizar() {
         float delta=Gdx.graphics.getDeltaTime();
         tAire+=5*delta;
@@ -68,6 +87,9 @@ public class Personaje extends Objeto {
             sprite.setY(yBase);
         }
     }
+
+
+
 
 
     public Sprite getSprite() {
